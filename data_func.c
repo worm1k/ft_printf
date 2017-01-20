@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.р                                        :+:      :+:    :+:   */
+/*   data_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,28 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF
-# define FT_PRINTF
-# include <stdarg.h>
-# include <stdio.h>
-# include "libft.h"
-# define HASH 0
-# define ZERO 1
-# define MINUS 2
-# define PLUS 3
-# define SPACE 4
+#include "ft_printf.h"
 
-typedef struct	s_data
+void		print_data(t_data *data)
 {
-	char		*flags;
-	int			width;
-	int			prec;
-	char		*length;
-	char		spec;
-}				t_data;
+	int	i;
+	ft_putchar('%');
+	i = 0;
+	while (i < 5)
+		ft_putchar((data->flags)[i++]);
+}
 
-int			ft_printf(const char *format, ...);
-void		print_data(t_data *data);
-void		data_flags(const char **format, t_data *data);
-
-#endif
+void		data_flags(const char **format, t_data *data)
+{
+	while (ft_strchr("#0-+ ", **format))
+	{
+		if (**format == '#')
+			(data->flags)[HASH] = '#';
+		else if (**format == '0')
+			(data->flags)[ZERO] = '0';
+		else if (**format == '-')
+			(data->flags)[MINUS] = '-';
+		else if (**format == '+')
+			(data->flags)[PLUS] = '+';
+		else if (**format == ' ')
+			(data->flags)[SPACE] = ' ';
+		(*format)++;
+	}
+}
