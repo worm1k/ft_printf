@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.р                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF
-# define FT_PRINTF
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 # include <stdarg.h>
 # include <stdio.h>
 # include "libft.h"
@@ -30,8 +30,16 @@ typedef struct	s_data
 	char		spec;
 }				t_data;
 
-int			ft_printf(const char *format, ...);
-void		print_data(t_data *data);
-void		data_flags(const char **format, t_data *data);
+typedef enum	e_len
+{
+	HH, H, L, Z, LL, J
+}				t_len;
+
+int				ft_printf(const char *format, ...);
+void			print_data(t_data *data);
+void			data_flags(const char **format, t_data *data, int *found);
+void			data_width(const char **format, t_data *data, int *found);
+void			data_prec(const char **format, t_data *data, int *found);
+void			data_length(const char **format, t_data *data, int *found);
 
 #endif

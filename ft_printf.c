@@ -12,36 +12,39 @@
 
 #include "ft_printf.h"
 
-void				data_init(t_data *data)
+void				data_init(t_data **data)
 {
-	data = (t_data *)malloc(sizeof(t_data));
-	data->flags = ft_strnew(4);
-	data->width = 0;
-	data->prec = 0;
-	data->length = ft_strnew(2);
-	data->spec = 0;
+	*data = (t_data *)malloc(sizeof(t_data));
+	(*data)->flags = ft_strnew(4);
+	(*data)->width = 0;
+	(*data)->prec = 0;
+	(*data)->length = ft_strnew(2);
+	(*data)->spec = 0;
 }
 
 void	print_pattern(const char **format, int *count, va_list valist)
 {
 		t_data		*data;
-		int i = 0;
-		data_init(data);
-		while (!ft_strchr("sSpdDioOuUxXcC", **format) && i++ < 10)
+		int			i;
+		int			found = 1;
+
+		i = 0;
+		data_init(&data);
+		while (found && i++ < 10)
 		{
-			if (ft_strchr("#0-+ ", **format))
-				data_flags(format, data);
-			//data->width = data_width(format);
-			//data->prec = data_prec(format);
-			//data->length = data_length(format);
+			found = 0;
+			data_flags(format, data, &found);
+			data_width(format, data, &found);
+			data_prec(format, data, &found);
+			data_length(format, data, &found);
 			//data->spec = data_spec(format);
 			//proc_data(data, count);
 			//else
 			//	break ;
 		}
-		printf("DATA:[\n");
+		printf("I:[%d]\n", i);
+		ft_putstr("DATA:");
 		print_data(data);
-		printf("]\n");
 		exit (0);
 }
 
@@ -61,7 +64,11 @@ int		ft_printf(const char *format, ...)
 			//count++;
 		}
 		if (*format == '%')
+		{
+			format++;
 			print_pattern(&format, &count, valist);
+		}
+
 		format++;
 		/*
 		// create node
@@ -95,12 +102,37 @@ int		ft_printf(const char *format, ...)
 	return (count);
 }
 
+void	sizes_print()
+{
+	long long int lld;
+	long int ld;
+	int d;
+	size_t zu;
+	short h;
+	signed short int hh;
+	unsigned long int ui;
+	unsigned long u;
+	intmax_t jd;
+
+	printf("LLD:[%3lu]\n", sizeof(lld));
+	printf("LD :[%3lu]\n", sizeof(ld));
+	printf("D  :[%3lu]\n", sizeof(d));
+	printf("H  :[%3lu]\n", sizeof(short int));
+	printf("HH :[%3lu]\n", sizeof(signed char));
+	printf("ZU :[%3lu]\n", sizeof(zu));
+	printf("JD :[%3lu]\n", sizeof(jd));
+	printf("ULI:[%3lu]\n", sizeof(ui));
+	printf("UL :[%3lu]\n", sizeof(u));
+}
+
 int main(int argc, char **argv)
 {
-	ft_printf("[%    ##   0 d$dTRASH]", 142);
-	//ft_printf("1:[%d]\n2:[%d]\n", 42, 52);
-	//ft_printf("huinya", "hui", 4422, "zhopa", (t_int)10);
-	//printf("%+.5d\n", 142);
+	//ft_printf("[% 45 .12.13.11  ##   0 21. ## 42d$dTRASH]", 142);
+
+	//sizes_print();
+	t_len a;
+	a = H;
+	printf("[%3d]HUI\n", a);
 
 	return 0;
 }
