@@ -12,12 +12,13 @@
 
 #include "ft_printf.h"
 
+#include <wchar.h>
 void				data_init(t_data **data)
 {
 	*data = (t_data *)malloc(sizeof(t_data));
 	(*data)->flags = ft_strnew(4);
-	(*data)->width = 0;
-	(*data)->prec = 0;
+	(*data)->width = -1;
+	(*data)->prec = -1;
 	(*data)->length = NONE;
 	(*data)->spec = 0;
 }
@@ -43,9 +44,11 @@ void	print_pattern(const char **format, int *count, va_list valist)
 			data->spec = **format;
 			(*format)++;
 		}
-		ft_putstr("DATA:");
-		print_data(data);
-		ft_putstr("\n");
+		else
+			return ;
+		ft_putstr("DATA:");print_data(data);ft_putstr("\n");
+		select_func(data, valist);
+
 
 		exit (0);
 }
@@ -70,34 +73,7 @@ int		ft_printf(const char *format, ...)
 			format++;
 			print_pattern(&format, &count, valist);
 		}
-
 		format++;
-		/*
-		// create node
-		while (ft_strchar('#0-+ ', format[i]))
-		{
-			// flags
-		}
-		while (ft_strchar('0123456789', format[i]))
-		{
-			// width
-		}
-		if (format[i] == '.')
-		{
-			i++;
-			while (ft_strchar('0123456789', format[i]))
-			{
-				// precision
-			}
-		}
-		if (ft_strchar('hljz', format[i]))
-		{
-			// length
-		}
-		if (ft_strchar("sSpdDioOuUxXcC", format[i]))
-		{
-			// specificator
-		}*/
 	}
 
 	va_end(valist);
@@ -106,34 +82,33 @@ int		ft_printf(const char *format, ...)
 
 void	sizes_print()
 {
-	long long int lld;
-	long int ld;
-	int d;
-	size_t zu;
-	short h;
-	signed short int hh;
-	unsigned long int ui;
-	unsigned long u;
-	intmax_t jd;
-
-	printf("LLD:[%3lu]\n", sizeof(lld));
-	printf("LD :[%3lu]\n", sizeof(ld));
-	printf("D  :[%3lu]\n", sizeof(d));
+	printf("LLD:[%3lu]\n", sizeof(long long));
+	printf("LD :[%3lu]\n", sizeof(long));
+	printf("D  :[%3lu]\n", sizeof(int));
 	printf("H  :[%3lu]\n", sizeof(short int));
-	printf("HH :[%3lu]\n", sizeof(signed char));
-	printf("ZU :[%3lu]\n", sizeof(zu));
-	printf("JD :[%3lu]\n", sizeof(jd));
-	printf("ULI:[%3lu]\n", sizeof(ui));
-	printf("UL :[%3lu]\n", sizeof(u));
+	printf("HH :[%3lu]\n", sizeof(char));
+	printf("ZU :[%3lu]\n", sizeof(size_t));
+	printf("JD :[%3lu]\n", sizeof(intmax_t));
 }
 
 int main(int argc, char **argv)
 {
-	ft_printf("[% 45 .12.13.11  ##   0 21.lhhhhlll ## 42d$dTRASH]", 142);
-
+	int i = 1544;
+	//ft_printf("%10.4s", "0123456789");
+	//printf("%0 10.4s$\n", "Huinia\n");
+	//printf("%hhs\n", "govno");
 	//printf("[%d]\n", ZERO);
 	//sizes_print();
 
+    wchar_t string[100];
+
+
+    printf ("Enter a string: ");
+    scanf("%ls",string);
+
+    ft_printf("[%ls]:%zu", string, wcslen(string));
+
+    return 0;
 	return 0;
 }
 

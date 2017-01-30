@@ -19,14 +19,16 @@ void		print_data(t_data *data)
 	
 	ft_putchar('[');
 	while (i < 5)
-		ft_putchar((data->flags)[i++]);
+	{
+		if ((data->flags)[i])
+			ft_putchar((data->flags)[i]);
+		i++;
+	}
 	ft_putchar(']');
 
 	ft_putchar('[');
 	ft_putnbr(data->width);
-	ft_putchar(']');
-
-	ft_putchar('[');
+	ft_putchar('.');
 	ft_putnbr(data->prec);
 	ft_putchar(']');
 
@@ -43,11 +45,10 @@ void		print_data(t_data *data)
 		ft_putstr("ll");
 	else if (data->length == J)
 		ft_putstr("j");
-	else
-		ft_putstr("0");
 	ft_putchar(']');
 
 	ft_putchar('[');
+		ft_putchar((data->spec));
 	ft_putchar(']');
 }
 
