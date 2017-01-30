@@ -15,25 +15,34 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include "libft.h"
+
+// todo: enum
+/*
 # define HASH 0
 # define ZERO 1
 # define MINUS 2
 # define PLUS 3
 # define SPACE 4
+*/
+typedef enum	e_len
+{
+	NONE, HH, H, L, Z, LL, J
+}				t_len;
 
-typedef struct	s_data
+typedef enum	e_flag
+{
+	HASH, ZERO, MINUS, PLUS, SPACE
+}				t_flag;
+
+typedef struct	t_data
 {
 	char		*flags;
 	int			width;
 	int			prec;
-	char		*length;
+	t_len		length;
 	char		spec;
 }				t_data;
 
-typedef enum	e_len
-{
-	HH, H, L, Z, LL, J
-}				t_len;
 
 int				ft_printf(const char *format, ...);
 void			print_data(t_data *data);

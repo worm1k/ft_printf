@@ -31,6 +31,20 @@ void		print_data(t_data *data)
 	ft_putchar(']');
 
 	ft_putchar('[');
+	if (data->length == HH)
+		ft_putstr("hh");
+	else if (data->length == H)
+		ft_putstr("h");
+	else if (data->length == L)
+		ft_putstr("l");
+	else if (data->length == Z)
+		ft_putstr("z");
+	else if (data->length == LL)
+		ft_putstr("ll");
+	else if (data->length == J)
+		ft_putstr("j");
+	else
+		ft_putstr("0");
 	ft_putchar(']');
 
 	ft_putchar('[');
@@ -83,15 +97,36 @@ void		data_prec(const char **format, t_data *data, int *found)
 	}
 }
 
+void		len_try(t_data *data, t_len length)
+{
+	if (data->length < length)
+		data->length = length;
+}
+
 void		data_length(const char **format, t_data *data, int *found)
 {
 	while (ft_strchr("hljz", **format))
 	{
 		if(ft_strnstr(*format, "hh", 2))
 		{
-			ft_strcpy(data->length, "hh");
+			len_try(data, HH);
+			(*format) += 1;
 		}
-		(*found)++;
+		else if (ft_strnstr(*format, "ll", 2))
+		{
+			len_try(data, LL);
+			(*format) += 1;
+		}
+		else if (ft_strnstr(*format, "l", 1))
+			len_try(data, L);
+		else if (ft_strnstr(*format, "h", 1))
+			len_try(data, H);
+		else if (ft_strnstr(*format, "j", 1))
+			len_try(data, J);
+		else if (ft_strnstr(*format, "z", 1))
+			len_try(data, Z);
+		(*format) += 1;
+		(*found) += 2;
 	}
 }
 

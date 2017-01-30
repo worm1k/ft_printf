@@ -18,7 +18,7 @@ void				data_init(t_data **data)
 	(*data)->flags = ft_strnew(4);
 	(*data)->width = 0;
 	(*data)->prec = 0;
-	(*data)->length = ft_strnew(2);
+	(*data)->length = NONE;
 	(*data)->spec = 0;
 }
 
@@ -30,21 +30,23 @@ void	print_pattern(const char **format, int *count, va_list valist)
 
 		i = 0;
 		data_init(&data);
-		while (found && i++ < 10)
+		while (found && i++ < 100)
 		{
 			found = 0;
 			data_flags(format, data, &found);
 			data_width(format, data, &found);
 			data_prec(format, data, &found);
 			data_length(format, data, &found);
-			//data->spec = data_spec(format);
-			//proc_data(data, count);
-			//else
-			//	break ;
 		}
-		printf("I:[%d]\n", i);
+		if (ft_strchr("sSpdDioOuUxXcC", **format))
+		{
+			data->spec = **format;
+			(*format)++;
+		}
 		ft_putstr("DATA:");
 		print_data(data);
+		ft_putstr("\n");
+
 		exit (0);
 }
 
@@ -127,12 +129,10 @@ void	sizes_print()
 
 int main(int argc, char **argv)
 {
-	//ft_printf("[% 45 .12.13.11  ##   0 21. ## 42d$dTRASH]", 142);
+	ft_printf("[% 45 .12.13.11  ##   0 21.lhhhhlll ## 42d$dTRASH]", 142);
 
+	//printf("[%d]\n", ZERO);
 	//sizes_print();
-	t_len a;
-	a = H;
-	printf("[%3d]HUI\n", a);
 
 	return 0;
 }
