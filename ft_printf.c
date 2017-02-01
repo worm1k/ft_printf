@@ -46,11 +46,11 @@ void	print_pattern(const char **format, int *count, va_list valist)
 		}
 		else
 			return ;
-		ft_putstr("DATA:");print_data(data);ft_putstr("\n");
+		//ft_putstr("DATA:");print_data(data);ft_putstr("\n");
 		select_func(data, valist);
 
 
-		exit (0);
+//		exit (0);
 }
 
 int		ft_printf(const char *format, ...)
@@ -64,7 +64,7 @@ int		ft_printf(const char *format, ...)
 	{	
 		while (*format != '%' && *format != '\0')
 		{
-			//ft_putchar(*format);
+			ft_putchar(*format);
 			format++;
 			//count++;
 		}
@@ -73,7 +73,6 @@ int		ft_printf(const char *format, ...)
 			format++;
 			print_pattern(&format, &count, valist);
 		}
-		format++;
 	}
 
 	va_end(valist);
@@ -93,7 +92,7 @@ void	sizes_print()
 
 int main(int argc, char **argv)
 {
-	int i = 1544;
+	size_t i = 1544;
 	//ft_printf("%10.4s", "0123456789");
 	//printf("%0 10.4s$\n", "Huinia\n");
 	//printf("%hhs\n", "govno");
@@ -102,11 +101,11 @@ int main(int argc, char **argv)
 
     wchar_t string[100];
 
-
     printf ("Enter a string: ");
     scanf("%ls",string);
-
-    ft_printf("[%ls]:%zu", string, wcslen(string));
+    i = wcslen(string);
+    //printf("%010.4ls", string);
+    ft_printf("[%010.3s]:%s", "Cyka", ft_itoa(i));
 
     return 0;
 	return 0;
