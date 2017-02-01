@@ -14,16 +14,10 @@
 # define FT_PRINTF_H
 # include <stdarg.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include "libft.h"
+# define ABS(x) (((x) < 0) ? (-(x)) : (x))
 
-// todo: enum
-/*
-# define HASH 0
-# define ZERO 1
-# define MINUS 2
-# define PLUS 3
-# define SPACE 4
-*/
 typedef enum	e_len
 {
 	NONE, HH, H, L, Z, LL, J
@@ -52,6 +46,10 @@ void			data_length(const char **format, t_data *data, int *found);
 void			select_func(t_data *data, va_list valist);
 void			ft_printf_s(t_data *data, char *s);
 void			ft_printf_ls(t_data *data, wchar_t *s);
-
+void			ft_printf_p(t_data *data, void *p);
+char			*ft_itoa_base(long value, int base, int *len);
+void			ft_printf_d(t_data *data, int n);
+void			print_n(char c, int len);
+int 			int_length(long long value, int base);
 
 #endif

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_s.c                                      :+:      :+:    :+:   */
+/*   ft_printf_d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,33 +12,35 @@
 
 #include "ft_printf.h"
 
-int			ft_wcslen(wchar_t *ws)
+void	print_unsigned(int n)
 {
-	int 	i;
-	int		res;
-
-	i = 0;
-	res = 0;
-	while (ws[i])
+	if (-10 < n && n < 10)
+		ft_putchar(ABS(n) + '0');
+	else
 	{
-		res += ft_strlen((char *)ws);
-		i++;
+		print_unsigned(n / 10);
+		print_unsigned(n % 10);
 	}
-	return (res);
 }
 
-void		print_n(char c, int len)
+void		ft_printf_d(t_data *data, int n)
 {
 	int		i;
+	int		len;
+	int		minus;
 
+	minus = (n < 0) ? (1) : (0);
+	len = (data->prec < int_length(n, 10)) ? (int_length(n, 10)) : (data->prec);
+	if (minus + len < data->width && (data->flags)[MINUS] == 0)
+		print_n(' ', data->width - len - minus);
 	i = 0;
-	while (i < len)
-	{
-		write(1, &c, 1);
-		i++;
-	}
+	if (minus == 1)
+		write(1, "-", 1);
+	if (data->prec > int_length(n, 10))
+		print_n('0', data->prec - int_length(n, 10));
+	print_unsigned(n);
 }
-
+/*
 void		ft_printf_s(t_data *data, char *s)
 {
 	int		i;
@@ -47,44 +49,11 @@ void		ft_printf_s(t_data *data, char *s)
 	len = (data->prec < ft_strlen(s)) ? (data->prec) : (ft_strlen(s));
 	len = (len == -1) ? (ft_strlen(s)) : len;
 	if (len < data->width && (data->flags)[MINUS] == 0)
-	{
-		if ((data->flags)[ZERO] == '0')
-			print_n('0', data->width - len);
-		else
 			print_n(' ', data->width - len);
-	}
 	i = 0;
 	while (i < len)
 		ft_putchar(s[i++]);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }
-
-void		ft_printf_ls(t_data *data, wchar_t *ws)
-{
-	int		i;
-	int		j;
-	int		len;
-	char	*s;
-
-	s = (char *)ws;
-	len = (data->prec < ft_wcslen(ws)) ? (data->prec) : (ft_wcslen(ws));
-	len = (len == -1) ? (ft_wcslen(ws)) : len;
-	if ((len < data->width) && ((data->flags)[MINUS] == 0))
-	{
-		if ((data->flags)[ZERO] == '0')
-			print_n('0', data->width - len);
-		else
-			print_n(' ', data->width - len);
-	}
-	i = 0;
-	j = 0;
-	while (i++ < len)
-	{
-		write(1, s + j++, 1);
-		while (!s[j] && i < len)
-			j++;
-	}
-	if ((data->flags)[MINUS] == '-')
-		print_n(' ', data->width - len);
-}
+*/

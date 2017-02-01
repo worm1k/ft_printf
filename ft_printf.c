@@ -99,16 +99,19 @@ int main(int argc, char **argv)
 	//printf("[%d]\n", ZERO);
 	//sizes_print();
 
-    wchar_t string[100];
+	wchar_t string[100];
+	size_t *p = malloc(8);
 
-    printf ("Enter a string: ");
-    scanf("%ls",string);
-    i = wcslen(string);
-    //printf("%010.4ls", string);
-    ft_printf("[%010.3s]:%s", "Cyka", ft_itoa(i));
+	//printf ("Enter a string: ");
+	//scanf("%ls",string);
+	i = wcslen(string);
+	//printf("%010.4ls", string);
+	//ft_printf("[%10.7ls]:%s\n", string, ft_itoa(i));
+	//   printf("[%10.7ls]:%s\n", string, ft_itoa(i));
+	ft_printf("[%12.11d]\n", -500);
+	   printf("[%12.11d]\n", -500);
 
     return 0;
-	return 0;
 }
 
 
