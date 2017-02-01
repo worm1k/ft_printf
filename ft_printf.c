@@ -92,24 +92,12 @@ void	sizes_print()
 
 int main(int argc, char **argv)
 {
-	size_t i = 1544;
-	//ft_printf("%10.4s", "0123456789");
-	//printf("%0 10.4s$\n", "Huinia\n");
-	//printf("%hhs\n", "govno");
-	//printf("[%d]\n", ZERO);
-	//sizes_print();
+	size_t hhd = -10;
 
-	wchar_t string[100];
-	size_t *p = malloc(8);
-
-	//printf ("Enter a string: ");
-	//scanf("%ls",string);
-	i = wcslen(string);
-	//printf("%010.4ls", string);
 	//ft_printf("[%10.7ls]:%s\n", string, ft_itoa(i));
 	//   printf("[%10.7ls]:%s\n", string, ft_itoa(i));
-	ft_printf("[%12.11d]\n", -500);
-	   printf("[%12.11d]\n", -500);
+	ft_printf("[%5.4zd]\n", hhd);
+	   printf("[%5.4zd]\n", hhd);
 
     return 0;
 }

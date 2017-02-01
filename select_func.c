@@ -16,8 +16,8 @@
 // S +
 // p == #lx 
 // d +
-// D 
-// i 
+// D +
+// i +
 // o 
 // O 
 // u 
@@ -28,7 +28,7 @@
 // C
 void		select_func(t_data *data, va_list valist)
 {
-	if (ft_strchr("s", data->spec))
+	if (data->spec == 's')
 	{
 		if (data->length == L)
 			//return ;
@@ -36,8 +36,44 @@ void		select_func(t_data *data, va_list valist)
 		else
 			ft_printf_s(data, va_arg(valist, char *));
 	}
-	else if (ft_strchr("p", data->spec))
+	else if (data->spec == 'S')
+		ft_printf_ls(data, va_arg(valist, wchar_t *));
+	else if (data->spec == 'p')
 		ft_printf_p(data, va_arg(valist, void *));
-	else if (ft_strchr("d", data->spec))
-		ft_printf_d(data, va_arg(valist, int));
+	else if (data->spec == 'd' || data->spec == 'i')
+	{
+		if (data->length == HH)
+			ft_printf_d(data, va_arg(valist, signed char));
+		else if (data->length == H)
+			ft_printf_d(data, va_arg(valist, short int));
+		else if (data->length == L)
+			ft_printf_d(data, va_arg(valist, long int));
+		else if (data->length == Z)
+			ft_printf_d(data, va_arg(valist, size_t));
+		else if (data->length == LL)
+			ft_printf_d(data, va_arg(valist, long long int));
+		else if (data->length == J)
+			ft_printf_d(data, va_arg(valist, intmax_t));
+		else
+			ft_printf_d(data, va_arg(valist, int));
+	}
+	else if (data->spec == 'D')
+		ft_printf_d(data, va_arg(valist, long int));
+	else if (data->spec == 'o')
+	{
+		if (data->length == HH)
+			ft_printf_d(data, va_arg(valist, signed char));
+		else if (data->length == H)
+			ft_printf_d(data, va_arg(valist, short int));
+		else if (data->length == L)
+			ft_printf_d(data, va_arg(valist, long int));
+		else if (data->length == Z)
+			ft_printf_d(data, va_arg(valist, size_t));
+		else if (data->length == LL)
+			ft_printf_d(data, va_arg(valist, long long int));
+		else if (data->length == J)
+			ft_printf_d(data, va_arg(valist, intmax_t));
+		else
+			ft_printf_d(data, va_arg(valist, int));
+	}
 }

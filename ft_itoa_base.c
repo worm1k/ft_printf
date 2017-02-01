@@ -12,7 +12,22 @@
 
 #include "ft_printf.h"
 
-int 		int_length(long long value, int base)
+int 		uint_length(uintmax_t value, int base)
+{
+	int		res;
+
+	res = 0;
+	if (value == 0)
+		return (1);
+	while (value)
+	{
+		value /= base;
+		res++;
+	}
+	return (res);
+}
+
+int 		int_length(intmax_t value, int base)
 {
 	int		res;
 

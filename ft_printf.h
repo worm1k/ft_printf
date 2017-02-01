@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include "libft.h"
 # define ABS(x) (((x) < 0) ? (-(x)) : (x))
+# define LOW 0
+# define UPP 1
 
 typedef enum	e_len
 {
@@ -48,8 +50,9 @@ void			ft_printf_s(t_data *data, char *s);
 void			ft_printf_ls(t_data *data, wchar_t *s);
 void			ft_printf_p(t_data *data, void *p);
 char			*ft_itoa_base(long value, int base, int *len);
-void			ft_printf_d(t_data *data, int n);
+void			ft_printf_d(t_data *data, intmax_t n);
 void			print_n(char c, int len);
-int 			int_length(long long value, int base);
+int 			int_length(intmax_t value, int base);
+int 			uint_length(uintmax_t value, int base);
 
 #endif
