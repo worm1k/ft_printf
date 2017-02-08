@@ -20,7 +20,7 @@ static void		print_signed(intmax_t n, int base, int reg)
 	str_l = "0123456789abcdef";
 	str_u = "0123456789ABCDEF";
 	if (-base < n && n < base)
-		(reg == LOW) ? ft_putchar(str_l[ABS(n)]) : ft_putchar(str_u[ABS(n)]);
+		(reg == LOW) ? ft_putcount(str_l[ABS(n)]) : ft_putcount(str_u[ABS(n)]);
 	else
 	{
 		print_signed(n / base, base, reg);
@@ -31,17 +31,33 @@ static void		print_signed(intmax_t n, int base, int reg)
 void		ft_printf_d(t_data *data, intmax_t n)
 {
 	int		len;
-	int		minus;
+	//int		minus;
+	char	sign;
 
-	minus = (n < 0) ? (1) : (0);
+	sign = ((data->flags)[SPACE]) ? ' ' : 0;
+	((data->flags)[PLUS]) ? sign =  '+' : 0;
+	(n < 0) ? sign = '-' : 0;
+	//minus = (n < 0) ? (1) : (0);
 	len = (data->prec < int_length(n, 8)) ? (int_length(n, 8)) : (data->prec);
-	if (minus + len < data->width && (data->flags)[MINUS] == 0)
-		print_n(' ', data->width - len - minus);
-	if (minus == 1)
-		write(1, "-", 1);
+	len += (sign) ? (1) : (0);
+	//printf("{W:%dL:%dS:%c}\n", data->width, len, sign);
+	if (len < data->width && (data->flags)[MINUS] == 0)
+	{
+		if ((data->flags)[ZERO] == '0' && data->prec == -1)
+		{
+			sign ? ft_putcount(sign) : 0;
+			print_n('0', data->width - len);
+			sign = 0;
+		}
+		else
+			print_n(' ', data->width - len);
+	}
+	sign ? ft_putcount(sign) : 0;
 	if (data->prec > int_length(n, 10))
 		print_n('0', data->prec - int_length(n, 10));
 	print_signed(n, 10, LOW);
+	if ((data->flags)[MINUS] == '-')
+		print_n(' ', data->width - len);
 }
 /*
 void		ft_printf_s(t_data *data, char *s)

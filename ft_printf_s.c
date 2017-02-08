@@ -34,7 +34,7 @@ void		print_n(char c, int len)
 	i = 0;
 	while (i < len)
 	{
-		write(1, &c, 1);
+		ft_putcount(c);
 		i++;
 	}
 }
@@ -55,7 +55,7 @@ void		ft_printf_s(t_data *data, char *s)
 	}
 	i = 0;
 	while (i < len)
-		ft_putchar(s[i++]);
+		ft_putcount(s[i++]);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }
@@ -81,7 +81,7 @@ void		ft_printf_ls(t_data *data, wchar_t *ws)
 	j = 0;
 	while (i++ < len)
 	{
-		write(1, s + j++, 1);
+		ft_putcount(*(s + j++));
 		while (!s[j] && i < len)
 			j++;
 	}

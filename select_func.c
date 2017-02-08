@@ -26,6 +26,7 @@
 // X 
 // c 
 // C
+
 void		select_func(t_data *data, va_list valist)
 {
 	if (data->spec == 's')
@@ -62,18 +63,18 @@ void		select_func(t_data *data, va_list valist)
 	else if (data->spec == 'o')
 	{
 		if (data->length == HH)
-			ft_printf_d(data, va_arg(valist, signed char));
+			ft_printf_d(data, va_arg(valist, unsigned char));
 		else if (data->length == H)
-			ft_printf_d(data, va_arg(valist, short int));
+			ft_printf_d(data, va_arg(valist, unsigned short));
 		else if (data->length == L)
-			ft_printf_d(data, va_arg(valist, long int));
+			ft_printf_d(data, va_arg(valist, unsigned long));
 		else if (data->length == Z)
 			ft_printf_d(data, va_arg(valist, size_t));
 		else if (data->length == LL)
-			ft_printf_d(data, va_arg(valist, long long int));
+			ft_printf_d(data, va_arg(valist, unsigned long long));
 		else if (data->length == J)
-			ft_printf_d(data, va_arg(valist, intmax_t));
+			ft_printf_d(data, va_arg(valist, uintmax_t));
 		else
-			ft_printf_d(data, va_arg(valist, int));
+			ft_printf_d(data, va_arg(valist, unsigned int));
 	}
 }

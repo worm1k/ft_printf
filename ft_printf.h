@@ -20,6 +20,8 @@
 # define LOW 0
 # define UPP 1
 
+int g_count;
+
 typedef enum	e_len
 {
 	NONE, HH, H, L, Z, LL, J
@@ -39,6 +41,7 @@ typedef struct	t_data
 	char		spec;
 }				t_data;
 
+void			ft_putcount(char c);
 int				ft_printf(const char *format, ...);
 void			print_data(t_data *data);
 void			data_flags(const char **format, t_data *data, int *found);

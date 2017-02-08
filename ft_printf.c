@@ -13,6 +13,13 @@
 #include "ft_printf.h"
 
 #include <wchar.h>
+
+void	ft_putcount(char c)
+{
+	write(1, &c, 1);
+	g_count += 1;
+}
+
 void				data_init(t_data **data)
 {
 	*data = (t_data *)malloc(sizeof(t_data));
@@ -59,12 +66,13 @@ int		ft_printf(const char *format, ...)
 	int 			count;
 	char			*fmt;
 
+	g_count = 0;
 	va_start(valist, format);
 	while (*format != '\0')
 	{	
 		while (*format != '%' && *format != '\0')
 		{
-			ft_putchar(*format);
+			ft_putcount(*format);
 			format++;
 			//count++;
 		}
@@ -76,7 +84,7 @@ int		ft_printf(const char *format, ...)
 	}
 
 	va_end(valist);
-	return (count);
+	return (g_count);
 }
 
 void	sizes_print()
@@ -92,15 +100,140 @@ void	sizes_print()
 
 int main(int argc, char **argv)
 {
-	size_t hhd = -10;
+	int hhd = 100;
 
 	//ft_printf("[%10.7ls]:%s\n", string, ft_itoa(i));
 	//   printf("[%10.7ls]:%s\n", string, ft_itoa(i));
-	ft_printf("[%5.4zd]\n", hhd);
-	   printf("[%5.4zd]\n", hhd);
-
+	ft_printf("[%+5.4d]\n", hhd);
+	   printf("[%+5.4d]\n", hhd);
+//	int n = printf("123%d123%2147483644d\n", 1,2);
+//	printf("%d\n", n);
     return 0;
 }
+/*
+int     main(void)
+{
+    int n;
+    int m;
+    int nbr = -123;
+    int longnbr = -123456;
+//ALL FLAGS       
+
+	m = ft_printf("[% d]\n", nbr);//nothing      
+	n =    printf("[% d]\n", nbr);                                                                                      
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+
+	m = ft_printf("[%+ 6.2d]\n", nbr);//p < w && w > nbr       
+	n =    printf("[%+ 6.2d]\n", nbr);                                                                       
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+
+	m = ft_printf("[%+ 6.12d]\n", nbr);//p > w && w > nbr     
+	n =    printf("[%+ 6.12d]\n", nbr);                                                                    
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+
+	m = ft_printf("[%+ 1.7d]\n", nbr); //p > w && w < nbr    
+	n =    printf("[%+ 1.7d]\n", nbr);                                                                        
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+
+	m = ft_printf("[%+ 4.2d]\n", longnbr); //p < w && p < nbr      
+	n =    printf("[%+ 4.2d]\n", longnbr);                                                                          
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[%+ 2.4d]\n", longnbr); //p > w && w < nbr   
+	n =    printf("[%+ 2.4d]\n", longnbr);                                                                         
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[% 010d]\n", nbr);//no p && w > nbr  
+	n =    printf("[% 010d]\n", nbr);                                                                         
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[% 03d]\n", nbr);//no p && w == nbr 
+	n =    printf("[% 03d]\n", nbr);                                                                         
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[%+02d]\n", nbr);//no p && w < nbr       
+	n =    printf("[%+02d]\n", nbr);                                                                        
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[% .10d]\n", nbr);//no w && p > nbr     
+	n =    printf("[% .10d]\n", nbr);                                                                          
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[% .3d]\n", nbr);//no w && p == nbr   
+	n =   printf("[% .3d]\n", nbr);                                                                          
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[%.1d]\n", nbr);//no w && p < nbr    
+	n =    printf("[%.1d]\n", nbr);                                                                       
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[%+ 10.5d]\n", nbr);//p > nbr && p < w
+	n =    printf("[%+ 10.5d]\n", nbr);                                                                     
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[% 3.3d]\n", nbr);//p == w == nbr   
+	n =    printf("[% 3.3d]\n", nbr);                                                                       
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[%d]\n", nbr);
+	n =    printf("[%d]\n", nbr);                                                                    
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+	m = ft_printf("[%-10.5d]\n", nbr);
+	n =    printf("[%-10.5d]\n", nbr);                                                                    
+	printf("%d\n", m);
+	printf("%d\n", n);
+	printf("============\n");
+	fflush(stdout);
+	
+    return (0);
+}
+*/
 
 
 
