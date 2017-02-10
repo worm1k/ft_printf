@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_d.c                                      :+:      :+:    :+:   */
+/*   ft_printf_oux.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -28,11 +28,11 @@ static void		print_unsigned(uintmax_t n, int base, int reg)
 	}
 }
 
-void	ft_printf_o(t_data *data, uintmax_t n)
+void	ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
 {
 	int		len;
 
-	len = (data->prec < int_length(n, 8)) ? (int_length(n, 8)) : (data->prec);
+	len = (data->prec < int_length(n, base)) ? (int_length(n, base)) : (data->prec);
 	if (len < data->width && (data->flags)[MINUS] == 0)
 	{
 		if ((data->flags)[ZERO] == '0' && data->prec == -1)
@@ -40,37 +40,42 @@ void	ft_printf_o(t_data *data, uintmax_t n)
 		else
 			print_n(' ', data->width - len);
 	}
-	if (data->prec > int_length(n, 8))
-		print_n('0', data->prec - int_length(n, 8));
-	print_unsigned(n, 8, LOW);
+	if (data->prec > int_length(n, base))
+		print_n('0', data->prec - int_length(n, base));
+	print_unsigned(n, base, reg);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
-
 }
 /*
 void		ft_printf_d(t_data *data, intmax_t n)
 {
 	int		len;
-	int		minus;
+	//int		minus;
+	char	sign;
 
-	minus = (n < 0) ? (1) : (0);
+	sign = ((data->flags)[SPACE]) ? ' ' : 0;
+	((data->flags)[PLUS]) ? sign =  '+' : 0;
+	(n < 0) ? sign = '-' : 0;
+	//minus = (n < 0) ? (1) : (0);
 	len = (data->prec < int_length(n, 8)) ? (int_length(n, 8)) : (data->prec);
-	if (minus + len < data->width && (data->flags)[MINUS] == 0)
+	len += (sign) ? (1) : (0);
+	//printf("{W:%dL:%dS:%c}\n", data->width, len, sign);
+	if (len < data->width && (data->flags)[MINUS] == 0)
 	{
 		if ((data->flags)[ZERO] == '0' && data->prec == -1)
 		{
-			if (minus == 1)
-				ft_putcount('-');
-			print_n('0', data->width - len - minus);
-			minus = 0;
+			sign ? ft_putcount(sign) : 0;
+			print_n('0', data->width - len);
+			sign = 0;
 		}
 		else
-			print_n(' ', data->width - len - minus);
+			print_n(' ', data->width - len);
 	}
-	if (minus == 1)
-		ft_putcount('-');
+	sign ? ft_putcount(sign) : 0;
 	if (data->prec > int_length(n, 10))
 		print_n('0', data->prec - int_length(n, 10));
 	print_signed(n, 10, LOW);
+	if ((data->flags)[MINUS] == '-')
+		print_n(' ', data->width - len);
 }
 */
