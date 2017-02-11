@@ -125,12 +125,17 @@ int     main(void)
 	printf("============\n");
 	fflush(stdout);
 */
-    ft_printf("[%#.o]\n", 0);
+    //ft_printf("[%#.o]\n", 0);
        printf("[%#.o]\n", 0);
-    ft_printf("[%#4.2o]\n", 1);
-       printf("[%#4.2o]\n", 1);
-    ft_printf("[%#2.4o]\n", 1);
-       printf("[%#2.4o]\n", 1);
+       printf("[%#.o]\n", 1);
+       printf("[%.o]\n", 0);
+       printf("[%.o]\n", 1);
+       printf("\n");
+  //  ft_printf("[%#2.4o]\n", 1);
+       printf("[%#.x]\n", 0);
+       printf("[%#.x]\n", 1);
+       printf("[%.x]\n", 0);
+       printf("[%.x]\n", 1);
 
 //ALL FLAGS       
     /*

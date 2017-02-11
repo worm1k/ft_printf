@@ -12,6 +12,19 @@
 
 #include "ft_printf.h"
 
+static void		print_filler(t_data *data, int n, int base, int len)
+{
+	int			extra;
+
+	extra = 0;
+	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
+			extra = 2;
+	if ((data->flags)[ZERO] == '0' && data->prec == -1)
+		print_n('0', data->width - len - extra);
+	else
+		print_n(' ', data->width - len - extra);
+}
+
 static void		print_prefix(int reg)
 {	
 	ft_putcount('0');
@@ -41,26 +54,27 @@ void	ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
 {
 	int		len;
 
-	if ((data->flags)[HASH] == '#')
+	if ((data->flags)[HASH] == 0 && data->prec == 0)
+		len = 0;
+	else if ((data->flags)[HASH] == '#')
 	{
-		if (data->prec < int_length(n, base))
+		if (base == 16 && data->prec == 0)
+			len = 0;
+		if (data->prec < int_length(n, base) && data->prec != 0)
 			data->prec = (int_length(n, base) + 2 - base / 8);
 		if (n == 0)
 			data->prec = 2 - base / 8;
 	}
 	len = (data->prec < int_length(n, base)) ? (int_length(n, base)) : (data->prec);
+	printf("{P:%dW:%d:L:%dN:%ju}", data->prec, data->width, len, n);
+	fflush(stdout);
 	if (len < data->width && (data->flags)[MINUS] == 0)
-	{
-		if ((data->flags)[ZERO] == '0' && data->prec == -1)
-			print_n('0', data->width - len);
-		else
-			print_n(' ', data->width - len);
-	}
+		print_filler(data, n, base, len);
 	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
 		print_prefix(reg);
 	if (data->prec > int_length(n, base))
 		print_n('0', data->prec - int_length(n, base));
-	if (!(n == 0 && data->prec == 0 && reg != 8))
+	if (n != 0 || data->prec != 0 || reg == 8)
 		print_unsigned(n, base, reg, data->prec);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
