@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_oux.c                                      :+:      :+:    :+:   */
+/*   ft_printf_oux.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,16 @@
 
 #include "ft_printf.h"
 
-static void		print_unsigned(uintmax_t n, int base, int reg)
+static void		print_prefix(int reg)
+{	
+	ft_putcount('0');
+	if (reg == LOW)
+		ft_putcount('x');
+	else
+		ft_putcount('X');
+}
+
+static void		print_unsigned(uintmax_t n, int base, int reg, int prec)
 {
 	char	*str_l;
 	char	*str_u;
@@ -23,8 +32,8 @@ static void		print_unsigned(uintmax_t n, int base, int reg)
 		(reg == LOW) ? ft_putcount(str_l[ABS(n)]) : ft_putcount(str_u[ABS(n)]);
 	else
 	{
-		print_unsigned(n / base, base, reg);
-		print_unsigned(n % base, base, reg);
+		print_unsigned(n / base, base, reg, prec);
+		print_unsigned(n % base, base, reg, prec);
 	}
 }
 
@@ -32,6 +41,13 @@ void	ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
 {
 	int		len;
 
+	if ((data->flags)[HASH] == '#')
+	{
+		if (data->prec < int_length(n, base))
+			data->prec = (int_length(n, base) + 2 - base / 8);
+		if (n == 0)
+			data->prec = 2 - base / 8;
+	}
 	len = (data->prec < int_length(n, base)) ? (int_length(n, base)) : (data->prec);
 	if (len < data->width && (data->flags)[MINUS] == 0)
 	{
@@ -40,9 +56,12 @@ void	ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
 		else
 			print_n(' ', data->width - len);
 	}
+	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
+		print_prefix(reg);
 	if (data->prec > int_length(n, base))
 		print_n('0', data->prec - int_length(n, base));
-	print_unsigned(n, base, reg);
+	if (!(n == 0 && data->prec == 0 && reg != 8))
+		print_unsigned(n, base, reg, data->prec);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }

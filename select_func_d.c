@@ -9,7 +9,7 @@
 /*   Updated: 2017/01/16 19:44:04 by abykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+// prec == 0 handle
 #include "ft_printf.h"
 
 void			select_func_d(t_data *data, va_list valist)
@@ -17,6 +17,11 @@ void			select_func_d(t_data *data, va_list valist)
 	signed char	hhd;
 	short int	hd;
 
+	if (data->prec == 0)
+	{
+		(void)va_arg(valist, int);
+		return ;
+	}
 	if (data->spec == 'd' || data->spec == 'i')
 	{
 		if (data->length == HH)

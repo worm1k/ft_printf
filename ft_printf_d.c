@@ -12,19 +12,21 @@
 
 #include "ft_printf.h"
 
-static void		print_signed(intmax_t n, int base, int reg)
+static void		print_signed(intmax_t n, int base, int reg, int prec)
 {
 	char	*str_l;
 	char	*str_u;
 
+	if (prec == 0 && n == 0)
+		return ;
 	str_l = "0123456789abcdef";
 	str_u = "0123456789ABCDEF";
 	if (-base < n && n < base)
 		(reg == LOW) ? ft_putcount(str_l[ABS(n)]) : ft_putcount(str_u[ABS(n)]);
 	else
 	{
-		print_signed(n / base, base, reg);
-		print_signed(n % base, base, reg);
+		print_signed(n / base, base, reg, prec);
+		print_signed(n % base, base, reg, prec);
 	}
 }
 
@@ -55,7 +57,7 @@ void		ft_printf_d(t_data *data, intmax_t n)
 	sign ? ft_putcount(sign) : 0;
 	if (data->prec > int_length(n, 10))
 		print_n('0', data->prec - int_length(n, 10));
-	print_signed(n, 10, LOW);
+	print_signed(n, 10, LOW, data->prec);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }
