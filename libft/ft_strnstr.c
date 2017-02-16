@@ -1,21 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_s.c                                      :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/16 19:44:03 by abykov            #+#    #+#             */
-/*   Updated: 2017/01/16 19:44:04 by abykov           ###   ########.fr       */
+/*   Created: 2016/11/22 18:45:10 by abykov            #+#    #+#             */
+/*   Updated: 2016/11/22 18:45:10 by abykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_printf_p(t_data *data, void *p)
+char		*ft_strnstr(const char *h, const char *n, size_t len)
 {
-	data->spec = 'x';
-	data->length = L;
-	(data->flags)[HASH] = '#';
-	ft_printf_oux(data, (long)p, 16, LOW);
+	int i;
+	int j;
+
+	if (!n[0])
+		return ((char *)h);
+	i = 0;
+	while (h[i] && i + ft_strlen(n) - 1 < len)
+	{
+		j = 0;
+		while (h[i + j] == n[j])
+		{
+			if (n[j + 1] == '\0')
+				return ((char *)&(h[i]));
+			j++;
+		}
+		i++;
+	}
+	return (NULL);
 }

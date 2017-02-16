@@ -1,4 +1,4 @@
 #!bin/sh
 
-gcc -o a libft.a *.c 
+gcc -o a *.c 
 ./a

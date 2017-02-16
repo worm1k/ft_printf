@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_s.c                                      :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/16 19:44:03 by abykov            #+#    #+#             */
-/*   Updated: 2017/01/16 19:44:04 by abykov           ###   ########.fr       */
+/*   Created: 2016/11/22 18:41:15 by abykov            #+#    #+#             */
+/*   Updated: 2016/11/22 18:41:16 by abykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_printf_p(t_data *data, void *p)
+char		*ft_strchr(const char *s, int c)
 {
-	data->spec = 'x';
-	data->length = L;
-	(data->flags)[HASH] = '#';
-	ft_printf_oux(data, (long)p, 16, LOW);
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			return ((char *)s + i);
+		i++;
+	}
+	if (s[i] == c)
+		return ((char *)s + i);
+	return (NULL);
 }

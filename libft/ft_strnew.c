@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_s.c                                      :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abykov <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/16 19:44:03 by abykov            #+#    #+#             */
-/*   Updated: 2017/01/16 19:44:04 by abykov           ###   ########.fr       */
+/*   Created: 2016/11/22 18:45:10 by abykov            #+#    #+#             */
+/*   Updated: 2016/11/22 18:45:10 by abykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-void	ft_printf_p(t_data *data, void *p)
+char		*ft_strnew(size_t size)
 {
-	data->spec = 'x';
-	data->length = L;
-	(data->flags)[HASH] = '#';
-	ft_printf_oux(data, (long)p, 16, LOW);
+	char	*res;
+	size_t	i;
+
+	i = 0;
+	res = (char *)malloc((size + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	while (i <= size)
+	{
+		res[i] = '\0';
+		i++;
+	}
+	return (res);
 }

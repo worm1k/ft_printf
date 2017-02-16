@@ -21,7 +21,7 @@ static void		print_filler(t_data *data, int n, int base, int len)
 }
 
 static void		print_prefix(int reg)
-{	
+{
 	ft_putcount('0');
 	if (reg == LOW)
 		ft_putcount('x');
@@ -56,10 +56,10 @@ static int		ft_getlen(t_data *data, int n, int base)
 		else
 			return (0);
 	}
-	if (base != 16 && (data->flags)[HASH] == '#')
+	if (base == 8 && (data->flags)[HASH] == '#')
 	{
 		if (n == 0)
-			return ((data->prec == -1 ) ? (1) : (data->prec));
+			return ((data->prec == -1) ? (1) : (data->prec));
 		if (data->prec <= int_length(n, base) && n != 0)
 			data->prec = int_length(n, base) + 1;
 	}
@@ -88,38 +88,3 @@ void			ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }
-
-
-/*
-void		ft_printf_d(t_data *data, intmax_t n)
-{
-	int		len;
-	//int		minus;
-	char	sign;
-
-	sign = ((data->flags)[SPACE]) ? ' ' : 0;
-	((data->flags)[PLUS]) ? sign =  '+' : 0;
-	(n < 0) ? sign = '-' : 0;
-	//minus = (n < 0) ? (1) : (0);
-	len = (data->prec < int_length(n, 8)) ? (int_length(n, 8)) : (data->prec);
-	len += (sign) ? (1) : (0);
-	//printf("{W:%dL:%dS:%c}\n", data->width, len, sign);
-	if (len < data->width && (data->flags)[MINUS] == 0)
-	{
-		if ((data->flags)[ZERO] == '0' && data->prec == -1)
-		{
-			sign ? ft_putcount(sign) : 0;
-			print_n('0', data->width - len);
-			sign = 0;
-		}
-		else
-			print_n(' ', data->width - len);
-	}
-	sign ? ft_putcount(sign) : 0;
-	if (data->prec > int_length(n, 10))
-		print_n('0', data->prec - int_length(n, 10));
-	print_signed(n, 10, LOW);
-	if ((data->flags)[MINUS] == '-')
-		print_n(' ', data->width - len);
-}
-*/

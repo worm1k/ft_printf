@@ -17,7 +17,7 @@ void		ft_printf_lc(t_data *data, int c)
 	ft_printf_c(data, c);
 }
 
-void		ft_printf_c(t_data *data, char c)
+void		ft_printf_c(t_data *data, int c)
 {
 	int		len;
 
@@ -29,7 +29,7 @@ void		ft_printf_c(t_data *data, char c)
 		else
 			print_n(' ', data->width - len);
 	}
-	(c != 0) ? (ft_putcount(s[i++])) : (0);
+	(c != 0) ? (ft_putcount(c)) : (0);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }

@@ -12,46 +12,6 @@
 
 #include "ft_printf.h"
 
-void		print_data(t_data *data)
-{
-	int	i = 0;
-	ft_putchar('%');
-	
-	ft_putchar('[');
-	while (i < 5)
-	{
-		if ((data->flags)[i])
-			ft_putchar((data->flags)[i]);
-		i++;
-	}
-	ft_putchar(']');
-
-	ft_putchar('[');
-	ft_putnbr(data->width);
-	ft_putchar('.');
-	ft_putnbr(data->prec);
-	ft_putchar(']');
-
-	ft_putchar('[');
-	if (data->length == HH)
-		ft_putstr("hh");
-	else if (data->length == H)
-		ft_putstr("h");
-	else if (data->length == L)
-		ft_putstr("l");
-	else if (data->length == Z)
-		ft_putstr("z");
-	else if (data->length == LL)
-		ft_putstr("ll");
-	else if (data->length == J)
-		ft_putstr("j");
-	ft_putchar(']');
-
-	ft_putchar('[');
-		ft_putchar((data->spec));
-	ft_putchar(']');
-}
-
 void		data_flags(const char **format, t_data *data, int *found)
 {
 	while (ft_strchr("#0-+ ", **format))
@@ -108,7 +68,7 @@ void		data_length(const char **format, t_data *data, int *found)
 {
 	while (ft_strchr("hljz", **format))
 	{
-		if(ft_strnstr(*format, "hh", 2))
+		if (ft_strnstr(*format, "hh", 2))
 		{
 			len_try(data, HH);
 			(*format) += 1;
@@ -130,15 +90,3 @@ void		data_length(const char **format, t_data *data, int *found)
 		(*found) += 2;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

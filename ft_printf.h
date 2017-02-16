@@ -15,7 +15,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include "libft.h"
+# include "libft/libft.h"
 # define ABS(x) (((x) < 0) ? (-(x)) : (x))
 # define LOW 0
 # define UPP 1
@@ -32,7 +32,7 @@ typedef enum	e_flag
 	HASH, ZERO, MINUS, PLUS, SPACE
 }				t_flag;
 
-typedef struct	t_data
+typedef struct	s_data
 {
 	char		*flags;
 	int			width;
@@ -49,10 +49,7 @@ void			data_width(const char **format, t_data *data, int *found);
 void			data_prec(const char **format, t_data *data, int *found);
 void			data_length(const char **format, t_data *data, int *found);
 void			select_func_1(t_data *data, va_list valist);
-void			select_func_2(t_data *data, va_list valist);
-void			select_func_d(t_data *data, va_list valist);
-void			select_func_oux(t_data *data, va_list valist, int base, int reg);
-char			*ft_itoa_base(long value, int base, int *len);
+//char			*ft_itoa_base(long value, int base, int *len);
 void			ft_printf_s(t_data *data, char *s);
 void			ft_printf_ls(t_data *data, wchar_t *s);
 void			ft_printf_p(t_data *data, void *p);
