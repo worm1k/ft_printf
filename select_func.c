@@ -20,13 +20,13 @@
 // i +
 // o #
 // O #
-// u 
-// U 
-// x 
-// X 
+// u +
+// U +
+// x #
+// X #
 // c 
 // C
-// char ch = va_arg(ap, int);
+
 void		select_func_1(t_data *data, va_list valist)
 {
 	if (data->spec == 's')
@@ -60,4 +60,13 @@ void		select_func_2(t_data *data, va_list valist)
 {
 	if (data->spec == 'x')
 		select_func_oux(data, valist, 16, LOW);
+	else if	(data->spec == 'X')
+		select_func_oux(data, valist, 16, UPP);
+	else if	(data->spec == 'c')
+	{
+		if (data->length == L)
+			ft_printf_lc(data, va_arg(valist, int));
+		else
+			ft_printf_c(data, va_arg(valist, int));
+	}
 }

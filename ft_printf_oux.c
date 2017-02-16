@@ -14,15 +14,10 @@
 
 static void		print_filler(t_data *data, int n, int base, int len)
 {
-	int			extra;
-
-	extra = 0;
-	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
-			extra = 2;
 	if ((data->flags)[ZERO] == '0' && data->prec == -1)
-		print_n('0', data->width - len - extra);
+		print_n('0', data->width - len);
 	else
-		print_n(' ', data->width - len - extra);
+		print_n(' ', data->width - len);
 }
 
 static void		print_prefix(int reg)
@@ -36,8 +31,8 @@ static void		print_prefix(int reg)
 
 static void		print_unsigned(uintmax_t n, int base, int reg, int prec)
 {
-	char	*str_l;
-	char	*str_u;
+	char		*str_l;
+	char		*str_u;
 
 	str_l = "0123456789abcdef";
 	str_u = "0123456789ABCDEF";
@@ -50,35 +45,51 @@ static void		print_unsigned(uintmax_t n, int base, int reg, int prec)
 	}
 }
 
-void	ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
+static int		ft_getlen(t_data *data, int n, int base)
 {
-	int		len;
+	int			len;
 
-	if ((data->flags)[HASH] == 0 && data->prec == 0)
-		len = 0;
-	else if ((data->flags)[HASH] == '#')
+	if (data->prec == 0 && n == 0)
 	{
-		if (base == 16 && data->prec == 0)
-			len = 0;
-		if (data->prec < int_length(n, base) && data->prec != 0)
-			data->prec = (int_length(n, base) + 2 - base / 8);
-		if (n == 0)
-			data->prec = 2 - base / 8;
+		if (base == 8 && (data->flags)[HASH] == '#')
+			return (1);
+		else
+			return (0);
 	}
-	len = (data->prec < int_length(n, base)) ? (int_length(n, base)) : (data->prec);
-	printf("{P:%dW:%d:L:%dN:%ju}", data->prec, data->width, len, n);
-	fflush(stdout);
+	if (base != 16 && (data->flags)[HASH] == '#')
+	{
+		if (n == 0)
+			return ((data->prec == -1 ) ? (1) : (data->prec));
+		if (data->prec <= int_length(n, base) && n != 0)
+			data->prec = int_length(n, base) + 1;
+	}
+	if (data->prec < int_length(n, base))
+		len = int_length(n, base);
+	else
+		len = data->prec;
+	if (base == 16 && (data->flags)[HASH] == '#')
+		return ((n == 0) ? (len) : (len + 2));
+	return (len);
+}
+
+void			ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
+{
+	int			len;
+
+	len = ft_getlen(data, n, base);
 	if (len < data->width && (data->flags)[MINUS] == 0)
 		print_filler(data, n, base, len);
 	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
 		print_prefix(reg);
 	if (data->prec > int_length(n, base))
 		print_n('0', data->prec - int_length(n, base));
-	if (n != 0 || data->prec != 0 || reg == 8)
+	if (len > 0)
 		print_unsigned(n, base, reg, data->prec);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }
+
+
 /*
 void		ft_printf_d(t_data *data, intmax_t n)
 {

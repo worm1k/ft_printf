@@ -126,16 +126,65 @@ int     main(void)
 	fflush(stdout);
 */
     //ft_printf("[%#.o]\n", 0);
-       printf("[%#.o]\n", 0);
-       printf("[%#.o]\n", 1);
-       printf("[%.o]\n", 0);
-       printf("[%.o]\n", 1);
+       printf("[%.u]\n", 0);
+       printf("[%.1u]\n", 0);
+       printf("[%.2u]\n", 0);
+       printf("[%.u]\n", 1);
+       printf("[%.1u]\n", 1);
+       printf("[%.2u]\n", 1);
+	fflush(stdout);
+       ft_printf("[%.u]\n", 0);
+       ft_printf("[%.1u]\n", 0);
+       ft_printf("[%.2u]\n", 0);
+       ft_printf("[%.u]\n", 1);
+       ft_printf("[%.1u]\n", 1);
+       ft_printf("[%.2u]\n", 1);
        printf("\n");
-  //  ft_printf("[%#2.4o]\n", 1);
-       printf("[%#.x]\n", 0);
-       printf("[%#.x]\n", 1);
+
+       printf("[%#.o]\n", 0);
+       printf("[%#.1o]\n", 0);
+       printf("[%#.2o]\n", 0);
+       printf("[%#.o]\n", 1);
+       printf("[%#.1o]\n", 1);
+       printf("[%#.2o]\n", 1);
+	fflush(stdout);
+       ft_printf("[%#.o]\n", 0);
+       ft_printf("[%#.1o]\n", 0);
+       ft_printf("[%#.2o]\n", 0);
+       ft_printf("[%#.o]\n", 1);
+       ft_printf("[%#.1o]\n", 1);
+       ft_printf("[%#.2o]\n", 1);
+       printf("\n");
+
        printf("[%.x]\n", 0);
+       printf("[%.1x]\n", 0);
+       printf("[%.2x]\n", 0);
        printf("[%.x]\n", 1);
+       printf("[%.1x]\n", 1);
+       printf("[%.2x]\n", 1);
+	fflush(stdout);
+       ft_printf("[%.x]\n", 0);
+       ft_printf("[%.1x]\n", 0);
+       ft_printf("[%.2x]\n", 0);
+       ft_printf("[%.x]\n", 1);
+       ft_printf("[%.1x]\n", 1);
+       ft_printf("[%.2x]\n", 1);
+       printf("\n");
+
+       printf("[%#.x]\n", 0);
+       printf("[%#.1x]\n", 0);
+       printf("[%#.2x]\n", 0);
+       printf("[%#.x]\n", 1);
+       printf("[%#.1x]\n", 1);
+       printf("[%#.2x]\n", 1);
+	fflush(stdout);
+       ft_printf("[%#.x]\n", 0);
+       ft_printf("[%#.1x]\n", 0);
+       ft_printf("[%#.2x]\n", 0);
+       ft_printf("[%#.x]\n", 1);
+       ft_printf("[%#.1x]\n", 1);
+       ft_printf("[%#.2x]\n", 1);
+       printf("\n");
 
 //ALL FLAGS       
     /*
