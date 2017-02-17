@@ -81,8 +81,8 @@ void			ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
 		print_filler(data, len);
 	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
 		print_prefix(reg);
-	if (data->prec > int_length(n, base))
-		print_n('0', data->prec - int_length(n, base));
+	if (data->prec > uint_length(n, base))
+		print_n('0', data->prec - uint_length(n, base));
 	if (len > 0)
 		print_unsigned(n, base, reg, data->prec);
 	if ((data->flags)[MINUS] == '-')

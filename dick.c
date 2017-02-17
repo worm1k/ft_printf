@@ -6,8 +6,11 @@
 
 int main()
 {
-	ft_printf("[%#0.d]\n", 0);
-       printf("[%#0.d]\n", 0);
+	int a;
+
+	a = 10;
+	ft_printf("[% 15.5p]\n", &a);
+       printf("[% 15.5p]\n", &a);
 
 	return (0);
 

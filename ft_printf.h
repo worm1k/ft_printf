@@ -49,7 +49,7 @@ void			data_width(const char **format, t_data *data, int *found);
 void			data_prec(const char **format, t_data *data, int *found);
 void			data_length(const char **format, t_data *data, int *found);
 void			select_func_1(t_data *data, va_list valist);
-//char			*ft_itoa_base(long value, int base, int *len);
+char			*ft_itoa_base(long value, int base, int *len);
 void			ft_printf_s(t_data *data, char *s);
 void			ft_printf_ls(t_data *data, wchar_t *s);
 void			ft_printf_p(t_data *data, void *p);
