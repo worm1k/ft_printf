@@ -6,12 +6,8 @@
 
 int main()
 {
-	int a;
-
-	a = 10;
-	ft_printf("[% 15.5p]\n", &a);
-       printf("[% 15.5p]\n", &a);
-
+	ft_printf("[% 5%");
+	   printf("[% 5%");
 	return (0);
 
 }

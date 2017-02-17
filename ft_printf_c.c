@@ -21,7 +21,7 @@ void		ft_printf_c(t_data *data, int c)
 {
 	int		len;
 
-	len = (c == 0) ? (0) : (1);
+	len = 1;
 	if (len < data->width && (data->flags)[MINUS] == 0)
 	{
 		if ((data->flags)[ZERO] == '0')

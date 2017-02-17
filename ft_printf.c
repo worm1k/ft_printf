@@ -50,7 +50,10 @@ void			print_pattern(const char **format, int *count, va_list valist)
 			(*format)++;
 		}
 		else
+		{
+			ft_printf_c(data, *((*format)++));
 			return ;
+		}
 		select_func_1(data, valist);
 }
 
@@ -69,13 +72,17 @@ int				ft_printf(const char *format, ...)
 			ft_putcount(*format);
 			format++;
 		}
+		if (*format == '%' && *(format + 1) == '%')
+		{
+			ft_putcount('%');
+			format += 2;
+		}
 		if (*format == '%')
 		{
 			format++;
 			print_pattern(&format, &count, valist);
 		}
 	}
-
 	va_end(valist);
 	return (g_count);
 }

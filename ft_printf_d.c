@@ -38,7 +38,7 @@ void			ft_printf_d(t_data *data, intmax_t n)
 	sign = ((data->flags)[SPACE]) ? ' ' : 0;
 	((data->flags)[PLUS]) ? sign =  '+' : 0;
 	(n < 0) ? sign = '-' : 0;
-	len = (data->prec < int_length(n, 8)) ? (int_length(n, 8)) : (data->prec);
+	len = (data->prec < int_length(n, 10)) ? (int_length(n, 10)) : (data->prec);
 	len += (sign) ? (1) : (0);
 	if (len < data->width && (data->flags)[MINUS] == 0)
 	{
