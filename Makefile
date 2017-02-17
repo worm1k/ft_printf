@@ -20,10 +20,10 @@ CPP_FLAGS = -Iinclude
 
 NAME = libftprintf.a
 
-SRC_PATH = ./
+SRC_PATH = .
 LIB_PATH = ./libft
-INC_PATH = ./
-OBJ_PATH = ./
+INC_PATH = .
+OBJ_PATH = .
 OBJLIB_PATH = ./libft
 
 SRC_NAME =	data_func.c \
@@ -33,7 +33,8 @@ SRC_NAME =	data_func.c \
 			ft_printf_oux.c \
 			ft_printf_p.c \
 			ft_printf_s.c \
-			select_func.c
+			select_func.c \
+			ft_itoa_base.c
 
 LIB_NAME = 	ft_strchr.c \
 			ft_strlen.c \
@@ -52,26 +53,26 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 OBJLIB = $(addprefix $(OBJLIB_PATH)/,$(OBJLIB_NAME))
 
 all: $(NAME)
-
+	
 $(NAME): $(OBJ) $(OBJLIB)
-	@ar rc $(NAME) $(OBJ) $(OBJLIB)
-	@ranlib $(NAME)
+	ar rc $(NAME) $(OBJ) $(OBJLIB)
+	ranlib $(NAME)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	@$(CC) -o $@ -c $<
+	$(CC) -o $@ -c $<
 
 $(OBJLIB_PATH)/%.o: $(LIB_PATH)/%.c
 	@mkdir $(OBJLIB_PATH) 2> /dev/null || true
-	@$(CC) -o $@ -c $<
+	$(CC) -o $@ -c $<
 
 clean:
-	@rm -rf $(OBJ) $(OBJLIB)
+	rm -rf $(OBJ) $(OBJLIB)
 
 fclean: clean
-	@rm -rf ./obj $(NAME)
+	rm -rf $(NAME)
 
 re: fclean all
-
+	
 norme:
 	@norminette $(SRC) $(LIB) $(INC)

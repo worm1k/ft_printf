@@ -9,10 +9,10 @@
 /*   Updated: 2017/01/16 19:44:04 by abykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+// uintmax
 #include "ft_printf.h"
 
-static void		print_filler(t_data *data, int n, int base, int len)
+static void		print_filler(t_data *data, int len)
 {
 	if ((data->flags)[ZERO] == '0' && data->prec == -1)
 		print_n('0', data->width - len);
@@ -45,7 +45,7 @@ static void		print_unsigned(uintmax_t n, int base, int reg, int prec)
 	}
 }
 
-static int		ft_getlen(t_data *data, int n, int base)
+static int		ft_getlen(t_data *data, uintmax_t n, int base)
 {
 	int			len;
 
@@ -60,11 +60,11 @@ static int		ft_getlen(t_data *data, int n, int base)
 	{
 		if (n == 0)
 			return ((data->prec == -1) ? (1) : (data->prec));
-		if (data->prec <= int_length(n, base) && n != 0)
-			data->prec = int_length(n, base) + 1;
+		if (data->prec <= uint_length(n, base) && n != 0)
+			data->prec = uint_length(n, base) + 1;
 	}
-	if (data->prec < int_length(n, base))
-		len = int_length(n, base);
+	if (data->prec < uint_length(n, base))
+		len = uint_length(n, base);
 	else
 		len = data->prec;
 	if (base == 16 && (data->flags)[HASH] == '#')
@@ -78,7 +78,7 @@ void			ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
 
 	len = ft_getlen(data, n, base);
 	if (len < data->width && (data->flags)[MINUS] == 0)
-		print_filler(data, n, base, len);
+		print_filler(data, len);
 	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
 		print_prefix(reg);
 	if (data->prec > int_length(n, base))
