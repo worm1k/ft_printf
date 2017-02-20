@@ -108,7 +108,7 @@ static void			select_func_2(t_data *data, va_list valist)
 	}
 	else if	(data->spec == 'C')
 			ft_printf_lc(data, va_arg(valist, int));
-	else if (data->spec == 'n')
+	//else if (data->spec == 'n')
 }
 
 void				select_func_1(t_data *data, va_list valist)
