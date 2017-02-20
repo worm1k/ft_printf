@@ -6,18 +6,21 @@
 
 int main()
 {
+	int len;
 	int n , m;
 
 	printf("FT:[");fflush(stdout);
-	n = ft_printf("%S", L"Á±≥");
-	printf("]:[%d]\n", n);
+	n = ft_printf("12345%20n67890", &len);
+	printf("]:[%d]\n", len);
 	fflush(stdout);
 
 
 	printf("   [");fflush(stdout);   
-	m = printf("%S", L"Á±≥");
+	m = printf("12345%20n67890", &len);
 	fflush(stdout);
-	printf("]:[%d]\n", m);
+	printf("]:[%d]\n", len);
 	fflush(stdout);
+
+	printf("L:[%d]\n", len);
 	return (0);
 }
