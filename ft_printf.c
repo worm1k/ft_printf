@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <wchar.h>
 
 void			ft_putcount(char c)
 {
@@ -34,9 +33,10 @@ void			print_pattern(const char **format, int *count, va_list valist)
 		t_data	*data;
 		int		found;
 
+
 		found = 1;
 		data_init(&data);
-		while (found)
+		while (found && **format)
 		{
 			found = 0;
 			data_flags(format, data, &found);
@@ -44,17 +44,19 @@ void			print_pattern(const char **format, int *count, va_list valist)
 			data_prec(format, data, &found);
 			data_length(format, data, &found);
 		}
-		if (ft_strchr("sSpdDioOuUxXcC", **format))
+		if (**format && ft_strchr("sSpdDioOuUxXcCn", **format))
 		{
 			data->spec = **format;
 			(*format)++;
 		}
 		else
 		{
-			ft_printf_c(data, *((*format)++));
+			if (**format != '\0')
+				ft_printf_c(data, *((*format)++));
 			return ;
 		}
 		select_func_1(data, valist);
+		data_del(&data);
 }
 
 int				ft_printf(const char *format, ...)

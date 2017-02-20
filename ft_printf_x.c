@@ -21,32 +21,6 @@ static void		print_prefix(int reg)
 		ft_putcount('X');
 }
 
-static void		print_filler(t_data *data, int len, uintmax_t n, int reg)
-{
-	int			extra;
-
-	if ((data->flags)[HASH])
-	{
-		if ((data->flags)[ZERO] && data->prec == -1)
-		{
-			(n != 0) ? (print_prefix(reg)) : (0);
-			print_n('0', data->width - len);
-		}
-		else
-		{
-			print_n(' ', data->width - len);
-			(n != 0) ? (print_prefix(reg)) : (0);
-		}
-	}
-	else
-	{
-		if ((data->flags)[ZERO] == '0' && data->prec == -1)
-			print_n('0', data->width - len);
-		else
-			print_n(' ', data->width - len);
-	}
-}
-
 static void		print_unsigned(uintmax_t n, int reg)
 {
 	char		*str_l;

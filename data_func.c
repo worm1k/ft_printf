@@ -14,7 +14,7 @@
 
 void		data_flags(const char **format, t_data *data, int *found)
 {
-	while (ft_strchr("#0-+ ", **format))
+	while (**format && ft_strchr("#0-+ ", **format))
 	{
 		if (**format == '#')
 			(data->flags)[HASH] = '#';
@@ -33,9 +33,9 @@ void		data_flags(const char **format, t_data *data, int *found)
 
 void		data_width(const char **format, t_data *data, int *found)
 {
-	if (ft_strchr("0123456789", **format))
+	if (**format && ft_strchr("0123456789", **format))
 		data->width = 0;
-	while (ft_strchr("0123456789", **format))
+	while (**format && ft_strchr("0123456789", **format))
 	{
 		data->width = data->width * 10 + **format - '0';
 		(*format)++;
@@ -66,7 +66,7 @@ void		len_try(t_data *data, t_len length)
 
 void		data_length(const char **format, t_data *data, int *found)
 {
-	while (ft_strchr("hljz", **format))
+	while (**format && ft_strchr("hljz", **format))
 	{
 		if (ft_strnstr(*format, "hh", 2))
 		{

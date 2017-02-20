@@ -12,36 +12,32 @@
 
 #include "ft_printf.h"
 
-static void		print_filler(t_data *data, int len)
+static void		print_prefix()
 {
-	if ((data->flags)[ZERO] == '0' && data->prec == -1)
-		print_n('0', data->width - len);
-	else
-		print_n(' ', data->width - len);
+	ft_putcount('0');
+	ft_putcount('x');
 }
 
-static void		print_unsigned(uintmax_t n, int base, int reg, int prec)
+static void		print_unsigned(uintmax_t n)
 {
 	char		*str_l;
-	char		*str_u;
 
 	str_l = "0123456789abcdef";
-	str_u = "0123456789ABCDEF";
-	if (n < base)
-		(reg == LOW) ? ft_putcount(str_l[ABS(n)]) : ft_putcount(str_u[ABS(n)]);
+	if (n < 16)
+		ft_putcount(str_l[n]);
 	else
 	{
-		print_unsigned(n / base, base, reg, prec);
-		print_unsigned(n % base, base, reg, prec);
+		print_unsigned(n / 16);
+		print_unsigned(n % 16);
 	}
 }
 
-static int		ft_getlen(t_data *data, long n, int base)
+static int		ft_getlen(int prec, int intlen)
 {
-	if (data->prec < uint_length(n, base))
-		return (uint_length(n, base) + 2);
+	if (prec < intlen)
+		return (intlen + 2);
 	else
-		return (data->prec + 2);
+		return (prec + 2);
 }
 
 void			ft_printf_p(t_data *data, void *p)
@@ -49,16 +45,18 @@ void			ft_printf_p(t_data *data, void *p)
 	int			len;
 	long		n;
 
-	n = (long)p;
-	len = ft_getlen(data, n, 16);
-	if (len < data->width && (data->flags)[MINUS] == 0)
-		print_filler(data, len);
-	ft_putcount('0');
-	ft_putcount('x');
-	if (data->prec > uint_length(n, 16))
+	n = (long) p;
+	len = ft_getlen(data->prec, uint_length(n, 16));
+	if (len < data->width && (data->flags)[MINUS] == 0
+		&& ((data->flags)[ZERO] == 0 || data->prec != -1))
+		print_n(' ', data->width - len);
+	print_prefix();
+	if (data->prec > uint_length(n, 16) && !(data->flags)[MINUS])
 		print_n('0', data->prec - uint_length(n, 16));
-	if (len > 0)
-		print_unsigned(n, 16, LOW, data->prec);
+	else if ((data->flags)[ZERO] && len < data->width && !(data->flags)[MINUS])
+		print_n('0', data->width - len);
+	if (!(n == 0 && data->prec == 0))
+		print_unsigned(n);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }

@@ -33,7 +33,8 @@ SRC_NAME =	data_func.c \
 			ft_printf_p.c \
 			ft_printf_s.c \
 			select_func.c \
-			ft_itoa_base.c
+			ft_itoa_base.c \
+			data_del.c
 
 LIB_NAME = 	ft_strchr.c \
 			ft_strlen.c \

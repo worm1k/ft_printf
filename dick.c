@@ -6,26 +6,18 @@
 
 int main()
 {
-	int i = 0, j = 0;
+	int n , m;
 
-	i = ft_printf("[%0d]\t", 0);printf("[%d]\n", i);fflush(stdout);
-	j =    printf("[%0d]\t", 0);printf("[%d]\n", j);fflush(stdout);
-	i = ft_printf("[%.0d]\t", 0);printf("[%d]\n", i);fflush(stdout);
-	j =    printf("[%.0d]\t", 0);printf("[%d]\n", j);fflush(stdout);
-	i = ft_printf("[%2.0d]\t", 0);printf("[%d]\n", i);fflush(stdout);
-	j =    printf("[%2.0d]\t", 0);printf("[%d]\n", j);fflush(stdout);
-	/*
-	printf("[");
+	printf("FT:[");fflush(stdout);
+	n = ft_printf("%S", L"Á±≥");
+	printf("]:[%d]\n", n);
 	fflush(stdout);
-	ft_printf("@moulitest: %.d %.0d", 42, 43);
-	printf("]");
+
+
+	printf("   [");fflush(stdout);   
+	m = printf("%S", L"Á±≥");
 	fflush(stdout);
-	printf("\n[");
+	printf("]:[%d]\n", m);
 	fflush(stdout);
-	   printf("@moulitest: %.d %.0d", 42, 43);
-	printf("]\n");
-	fflush(stdout);
-	*/
 	return (0);
-
 }
