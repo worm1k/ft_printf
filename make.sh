@@ -1,4 +1,4 @@
 #!bin/sh
 
-gcc -o a *.c 
+gcc -o a dick.c libftprintf.a
 ./a

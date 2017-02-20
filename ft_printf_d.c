@@ -10,24 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 // 0.0
+
+// [spaces][sign][zeros][num][spaces]
 #include "ft_printf.h"
 
-static void		print_signed(intmax_t n, int base, int reg, int prec)
+static void		print_signed(intmax_t n)
 {
-	char		*str_l;
-	char		*str_u;
-
-	if (prec == 0 && n == 0)
-		return ;
-	str_l = "0123456789abcdef";
-	str_u = "0123456789ABCDEF";
-	if (-base < n && n < base)
-		(reg == LOW) ? ft_putcount(str_l[ABS(n)]) : ft_putcount(str_u[ABS(n)]);
+	if (-10 < n && n < 10)
+		ft_putcount(ABS(n) + '0');
 	else
 	{
-		print_signed(n / base, base, reg, prec);
-		print_signed(n % base, base, reg, prec);
+		print_signed(n / 10);
+		print_signed(n % 10);
 	}
+}
+
+static int		ft_getlen(int prec, intmax_t n)
+{
+	int			len;
+
+	if (prec == 0 && n == 0)
+		return (0);
+	if (prec < int_length(n, 10))
+		return (int_length(n, 10));
+	return (prec);
 }
 
 void			ft_printf_d(t_data *data, intmax_t n)
@@ -35,10 +41,12 @@ void			ft_printf_d(t_data *data, intmax_t n)
 	int			len;
 	char		sign;
 
+	//printf("{N:%d}", n);
+	//fflush(stdout);
 	sign = ((data->flags)[SPACE]) ? ' ' : 0;
 	((data->flags)[PLUS]) ? sign =  '+' : 0;
 	(n < 0) ? sign = '-' : 0;
-	len = (data->prec < int_length(n, 10)) ? (int_length(n, 10)) : (data->prec);
+	len = ft_getlen(data->prec, n);
 	len += (sign) ? (1) : (0);
 	if (len < data->width && (data->flags)[MINUS] == 0)
 	{
@@ -54,7 +62,8 @@ void			ft_printf_d(t_data *data, intmax_t n)
 	sign ? ft_putcount(sign) : 0;
 	if (data->prec > int_length(n, 10))
 		print_n('0', data->prec - int_length(n, 10));
-	print_signed(n, 10, LOW, data->prec);
+	if (len > 0)
+		print_signed(n);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }

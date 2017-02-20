@@ -20,7 +20,7 @@
 # define LOW 0
 # define UPP 1
 
-int g_count;
+int				g_count;
 
 typedef enum	e_len
 {
@@ -56,7 +56,8 @@ void			ft_printf_p(t_data *data, void *p);
 void			ft_printf_d(t_data *data, intmax_t n);
 void			ft_printf_c(t_data *data, int c);
 void			ft_printf_lc(t_data *data, int c);
-void			ft_printf_oux(t_data *data, uintmax_t n, int base, int reg);
+void			ft_printf_ou(t_data *data, uintmax_t n, int base, int reg);
+void			ft_printf_x(t_data *data, uintmax_t n, int reg);
 void			print_n(char c, int len);
 int 			int_length(intmax_t value, int base);
 int 			uint_length(uintmax_t value, int base);

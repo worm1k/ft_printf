@@ -12,7 +12,7 @@
 // 000000x42
 #include "ft_printf.h"
 
-static void		print_filler(t_data *data, int len)
+static void		print_filler(t_data *data, int len, int base, int flag)
 {
 	if ((data->flags)[ZERO] == '0' && data->prec == -1)
 		print_n('0', data->width - len);
@@ -29,19 +29,14 @@ static void		print_prefix(int reg)
 		ft_putcount('X');
 }
 
-static void		print_unsigned(uintmax_t n, int base, int reg, int prec)
+static void		print_unsigned(uintmax_t n, int base)
 {
-	char		*str_l;
-	char		*str_u;
-
-	str_l = "0123456789abcdef";
-	str_u = "0123456789ABCDEF";
 	if (n < base)
-		(reg == LOW) ? ft_putcount(str_l[ABS(n)]) : ft_putcount(str_u[ABS(n)]);
+		ft_putcount(ABS(n) + '0');
 	else
 	{
-		print_unsigned(n / base, base, reg, prec);
-		print_unsigned(n % base, base, reg, prec);
+		print_unsigned(n / base, base);
+		print_unsigned(n % base, base);
 	}
 }
 
@@ -67,24 +62,20 @@ static int		ft_getlen(t_data *data, uintmax_t n, int base)
 		len = uint_length(n, base);
 	else
 		len = data->prec;
-	if (base == 16 && (data->flags)[HASH] == '#')
-		return ((n == 0) ? (len) : (len + 2));
 	return (len);
 }
 
-void			ft_printf_oux(t_data *data, uintmax_t n, int base, int reg)
+void			ft_printf_ou(t_data *data, uintmax_t n, int base, int reg)
 {
 	int			len;
 
 	len = ft_getlen(data, n, base);
 	if (len < data->width && (data->flags)[MINUS] == 0)
-		print_filler(data, len);
-	if (base == 16 && (data->flags)[HASH] == '#' && n != 0)
-		print_prefix(reg);
+		print_filler(data, len, base, 0);
 	if (data->prec > uint_length(n, base))
 		print_n('0', data->prec - uint_length(n, base));
 	if (len > 0)
-		print_unsigned(n, base, reg, data->prec);
+		print_unsigned(n, base);
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }

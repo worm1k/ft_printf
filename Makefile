@@ -16,8 +16,6 @@ CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
 
-CPP_FLAGS = -Iinclude
-
 NAME = libftprintf.a
 
 SRC_PATH = .
@@ -30,7 +28,8 @@ SRC_NAME =	data_func.c \
 			ft_printf.c \
 			ft_printf_c.c \
 			ft_printf_d.c \
-			ft_printf_oux.c \
+			ft_printf_ou.c \
+			ft_printf_x.c \
 			ft_printf_p.c \
 			ft_printf_s.c \
 			select_func.c \

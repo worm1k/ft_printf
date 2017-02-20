@@ -44,8 +44,13 @@ void		ft_printf_s(t_data *data, char *s)
 	int		i;
 	int		len;
 
-	len = (data->prec < ft_strlen(s)) ? (data->prec) : (ft_strlen(s));
-	len = (len == -1) ? (ft_strlen(s)) : len;
+	if (!s)
+		return (ft_printf_s(data, "(null)"));
+	else
+	{
+		len = (data->prec < ft_strlen(s)) ? (data->prec) : (ft_strlen(s));
+		len = (len == -1) ? (ft_strlen(s)) : len;
+	}
 	if (len < data->width && (data->flags)[MINUS] == 0)
 	{
 		if ((data->flags)[ZERO] == '0')
