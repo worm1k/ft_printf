@@ -64,7 +64,7 @@ void		ft_printf_s(t_data *data, char *s)
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }
-
+/*
 void		ft_printf_ls(t_data *data, wchar_t *ws)
 {
 	int		i;
@@ -75,6 +75,7 @@ void		ft_printf_ls(t_data *data, wchar_t *ws)
 	s = (char *)ws;
 	len = (data->prec < ft_wcslen(ws)) ? (data->prec) : (ft_wcslen(ws));
 	len = (len == -1) ? (ft_wcslen(ws)) : len;
+	printf("{L:%d}", len);exit(0);
 	if ((len < data->width) && ((data->flags)[MINUS] == 0))
 	{
 		if ((data->flags)[ZERO] == '0')
@@ -93,3 +94,4 @@ void		ft_printf_ls(t_data *data, wchar_t *ws)
 	if ((data->flags)[MINUS] == '-')
 		print_n(' ', data->width - len);
 }
+*/

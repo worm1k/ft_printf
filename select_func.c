@@ -102,12 +102,12 @@ static void			select_func_2(t_data *data, va_list valist)
 	else if	(data->spec == 'c')
 	{
 		if (data->length == L)
-			ft_printf_lc(data, va_arg(valist, int));
+			ft_printf_lc(data, va_arg(valist, wchar_t));
 		else
 			ft_printf_c(data, va_arg(valist, int));
 	}
 	else if	(data->spec == 'C')
-			ft_printf_lc(data, va_arg(valist, int));
+			ft_printf_lc(data, va_arg(valist, wchar_t));
 	else if (data->spec == 'n')
 		select_func_n(data, valist);
 }

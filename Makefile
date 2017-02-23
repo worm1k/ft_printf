@@ -32,6 +32,7 @@ SRC_NAME =	data_func.c \
 			ft_printf_x.c \
 			ft_printf_p.c \
 			ft_printf_s.c \
+			ft_printf_ls.c \
 			select_func.c \
 			select_func_n.c \
 			ft_itoa_base.c \
