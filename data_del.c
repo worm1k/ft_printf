@@ -16,7 +16,7 @@ void	data_del(t_data **data)
 {
 	if (data && *data)
 	{
-		if((*data)->flags)
+		if ((*data)->flags)
 			free((*data)->flags);
 		free(*data);
 	}

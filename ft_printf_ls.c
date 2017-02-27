@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static int	count_bytes(int	wc)
+static int	count_bytes(int wc)
 {
 	if (0 <= wc && wc <= 127)
 		return (1);
@@ -36,7 +36,6 @@ static int	ft_wslen(wchar_t *ws, int prec, int *chars)
 	*chars = 0;
 	while (ws[i] != 0)
 	{
-//		printf("[%d]:[%d]\n", i, ws[i]);
 		res += count_bytes(ws[i]);
 		*chars += 1;
 		if (prec != -1 && res > prec)
@@ -82,6 +81,8 @@ void		ft_printf_ls(t_data *data, wchar_t *ws)
 	int		len;
 	int		chars;
 
+	if (!ws)
+		return (ft_printf_ls(data, L"(null)"));
 	len = ft_wslen(ws, data->prec, &chars);
 	if ((len < data->width) && ((data->flags)[MINUS] == 0))
 	{

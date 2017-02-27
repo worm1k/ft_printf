@@ -60,8 +60,8 @@ void			ft_printf_lc(t_data *data, int c);
 void			ft_printf_ou(t_data *data, uintmax_t n, int base, int reg);
 void			ft_printf_x(t_data *data, uintmax_t n, int reg);
 void			print_n(char c, int len);
-int 			int_length(intmax_t value, int base);
-int 			uint_length(uintmax_t value, int base);
+int				int_length(intmax_t value, int base);
+int				uint_length(uintmax_t value, int base);
 void			data_del(t_data **data);
 
 #endif

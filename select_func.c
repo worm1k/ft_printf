@@ -12,21 +12,6 @@
 
 #include "ft_printf.h"
 
-// s + 
-// S +
-// p + ToTest
-// d + 0.0
-// D +
-// i +
-// o #
-// O #
-// u +
-// U +
-// x +
-// X +
-// c +
-// C +
-
 static void			select_func_x(t_data *data, va_list ap, int reg)
 {
 	unsigned char	hhd;
@@ -68,7 +53,7 @@ static void			select_func_ou(t_data *data, va_list ap, int base, int reg)
 	else
 		ft_printf_ou(data, va_arg(ap, unsigned int), base, reg);
 }
-// signed size_t
+
 static void			select_func_d(t_data *data, va_list valist)
 {
 	signed char		hhd;
@@ -97,17 +82,17 @@ static void			select_func_2(t_data *data, va_list valist)
 {
 	if (data->spec == 'x')
 		select_func_x(data, valist, LOW);
-	else if	(data->spec == 'X')
+	else if (data->spec == 'X')
 		select_func_x(data, valist, UPP);
-	else if	(data->spec == 'c')
+	else if (data->spec == 'c')
 	{
 		if (data->length == L)
 			ft_printf_lc(data, va_arg(valist, wchar_t));
 		else
 			ft_printf_c(data, va_arg(valist, int));
 	}
-	else if	(data->spec == 'C')
-			ft_printf_lc(data, va_arg(valist, wchar_t));
+	else if (data->spec == 'C')
+		ft_printf_lc(data, va_arg(valist, wchar_t));
 	else if (data->spec == 'n')
 		select_func_n(data, valist);
 }

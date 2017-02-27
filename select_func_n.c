@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void			select_func_n(t_data *data, va_list valist)
+void				select_func_n(t_data *data, va_list valist)
 {
 	signed char		*hhd;
 	short int		*hd;

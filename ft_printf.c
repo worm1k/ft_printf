@@ -18,7 +18,7 @@ void			ft_putcount(char c)
 	g_count += 1;
 }
 
-void			data_init(t_data **data)
+static void		data_init(t_data **data, int *found)
 {
 	*data = (t_data *)malloc(sizeof(t_data));
 	(*data)->flags = ft_strnew(4);
@@ -26,43 +26,42 @@ void			data_init(t_data **data)
 	(*data)->prec = -1;
 	(*data)->length = NONE;
 	(*data)->spec = 0;
+	*found = 1;
 }
 
 void			print_pattern(const char **format, int *count, va_list valist)
 {
-		t_data	*data;
-		int		found;
+	t_data		*data;
+	int			found;
 
-
-		found = 1;
-		data_init(&data);
-		while (found && **format)
-		{
-			found = 0;
-			data_flags(format, data, &found);
-			data_width(format, data, &found);
-			data_prec(format, data, &found);
-			data_length(format, data, &found);
-		}
-		if (**format && ft_strchr("sSpdDioOuUxXcCn", **format))
-		{
-			data->spec = **format;
-			(*format)++;
-		}
-		else
-		{
-			if (**format != '\0')
-				ft_printf_c(data, *((*format)++));
-			return ;
-		}
-		select_func_1(data, valist);
-		data_del(&data);
+	data_init(&data, &found);
+	while (found && **format)
+	{
+		found = 0;
+		data_flags(format, data, &found);
+		data_width(format, data, &found);
+		data_prec(format, data, &found);
+		data_length(format, data, &found);
+	}
+	if (**format && ft_strchr("sSpdDioOuUxXcCn", **format))
+	{
+		data->spec = **format;
+		(*format)++;
+	}
+	else
+	{
+		if (**format != '\0')
+			ft_printf_c(data, *((*format)++));
+		return ;
+	}
+	select_func_1(data, valist);
+	data_del(&data);
 }
 
 int				ft_printf(const char *format, ...)
 {
 	va_list		valist;
-	int 		count;
+	int			count;
 	char		*fmt;
 
 	g_count = 0;
@@ -70,10 +69,7 @@ int				ft_printf(const char *format, ...)
 	while (*format != '\0')
 	{
 		while (*format != '%' && *format != '\0')
-		{
-			ft_putcount(*format);
-			format++;
-		}
+			ft_putcount(*(format++));
 		if (*format == '%' && *(format + 1) == '%')
 		{
 			ft_putcount('%');

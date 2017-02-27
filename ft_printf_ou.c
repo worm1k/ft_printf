@@ -9,7 +9,7 @@
 /*   Updated: 2017/01/16 19:44:04 by abykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// 000000x42
+
 #include "ft_printf.h"
 
 static void		print_filler(t_data *data, int len, int base, int flag)

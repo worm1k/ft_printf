@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static void		print_prefix()
+static void		print_prefix(void)
 {
 	ft_putcount('0');
 	ft_putcount('x');
@@ -45,7 +45,7 @@ void			ft_printf_p(t_data *data, void *p)
 	int			len;
 	long		n;
 
-	n = (long) p;
+	n = (long)p;
 	len = ft_getlen(data->prec, uint_length(n, 16));
 	if (len < data->width && (data->flags)[MINUS] == 0
 		&& ((data->flags)[ZERO] == 0 || data->prec != -1))

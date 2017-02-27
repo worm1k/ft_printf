@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int 		uint_length(uintmax_t value, int base)
+int			uint_length(uintmax_t value, int base)
 {
 	int		res;
 
@@ -27,7 +27,7 @@ int 		uint_length(uintmax_t value, int base)
 	return (res);
 }
 
-int 		int_length(intmax_t value, int base)
+int			int_length(intmax_t value, int base)
 {
 	int		res;
 

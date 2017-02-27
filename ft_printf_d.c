@@ -9,9 +9,7 @@
 /*   Updated: 2017/01/16 19:44:04 by abykov           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-// 0.0
 
-// [spaces][sign][zeros][num][spaces]
 #include "ft_printf.h"
 
 static void		print_signed(intmax_t n)
@@ -36,16 +34,22 @@ static int		ft_getlen(int prec, intmax_t n)
 	return (prec);
 }
 
+static char		get_sign(t_data *data, intmax_t n)
+{
+	char		res;
+
+	res = ((data->flags)[SPACE]) ? (' ') : (0);
+	((data->flags)[PLUS]) ? (res = '+') : (0);
+	(n < 0) ? res = '-' : 0;
+	return (res);
+}
+
 void			ft_printf_d(t_data *data, intmax_t n)
 {
 	int			len;
 	char		sign;
 
-	//printf("{N:%d}", n);
-	//fflush(stdout);
-	sign = ((data->flags)[SPACE]) ? ' ' : 0;
-	((data->flags)[PLUS]) ? sign =  '+' : 0;
-	(n < 0) ? sign = '-' : 0;
+	sign = get_sign(data, n);
 	len = ft_getlen(data->prec, n);
 	len += (sign) ? (1) : (0);
 	if (len < data->width && (data->flags)[MINUS] == 0)

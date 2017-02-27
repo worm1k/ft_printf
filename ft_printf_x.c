@@ -42,7 +42,7 @@ static int		ft_getlen(t_data *data, uintmax_t n)
 	int			len;
 
 	if (data->prec == 0 && n == 0)
-			return (0);
+		return (0);
 	if (data->prec < uint_length(n, 16))
 		len = uint_length(n, 16);
 	else
@@ -57,8 +57,6 @@ void			ft_printf_x(t_data *data, uintmax_t n, int reg)
 	int			len;
 
 	len = ft_getlen(data, n);
-	//printf("{W:%dP:%dN:%d0:%d}\n", data->width, data->prec, n, (data->flags)[ZERO]);
-	fflush(stdout);
 	if (len < data->width && (data->flags)[MINUS] == 0
 		&& ((data->flags)[ZERO] == 0 || data->prec != -1))
 		print_n(' ', data->width - len);
