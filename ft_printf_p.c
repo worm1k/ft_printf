@@ -47,6 +47,8 @@ void			ft_printf_p(t_data *data, void *p)
 
 	n = (long)p;
 	len = ft_getlen(data->prec, uint_length(n, 16));
+	if (data->prec == 0 && n == 0)
+		len = 2;
 	if (len < data->width && (data->flags)[MINUS] == 0
 		&& ((data->flags)[ZERO] == 0 || data->prec != -1))
 		print_n(' ', data->width - len);

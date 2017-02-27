@@ -62,9 +62,10 @@ void			ft_printf_x(t_data *data, uintmax_t n, int reg)
 		print_n(' ', data->width - len);
 	if ((data->flags)[HASH] == '#' && n != 0)
 		print_prefix(reg);
-	if (data->prec > uint_length(n, 16) && !(data->flags)[MINUS])
+	if (data->prec > uint_length(n, 16))
 		print_n('0', data->prec - uint_length(n, 16));
-	else if ((data->flags)[ZERO] && len < data->width && !(data->flags)[MINUS])
+	else if ((data->flags)[ZERO] && len < data->width && !(data->flags)[MINUS]
+		&& !((data->flags)[HASH] && data->prec < len && data->prec != -1))
 		print_n('0', data->width - len);
 	if (len > 0)
 		print_unsigned(n, reg);

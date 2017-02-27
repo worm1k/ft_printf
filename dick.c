@@ -4,8 +4,8 @@
 #include "ft_printf.h"
 #include <locale.h>
 
-#define CASE "{% S}"
-#define VARG NULL
+#define CASE "%#09.2x"
+#define VARG 8400
 
 int main()
 {
