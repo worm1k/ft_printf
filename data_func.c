@@ -60,7 +60,15 @@ void		data_prec(const char **format, t_data *data, int *found)
 
 void		len_try(t_data *data, t_len length)
 {
-	if (data->length < length)
+	if (data->length == H && length == H)
+		data->length = HH;
+	else if (data->length == HH && length == H)
+		data->length = H;
+	else if (data->length == L && length == L)
+		data->length = LL;
+	else if (data->length == LL && length == L)
+		data->length = L;
+	else if (data->length < length)
 		data->length = length;
 }
 
@@ -68,17 +76,7 @@ void		data_length(const char **format, t_data *data, int *found)
 {
 	while (**format && ft_strchr("hljz", **format))
 	{
-		if (ft_strnstr(*format, "hh", 2))
-		{
-			len_try(data, HH);
-			(*format) += 1;
-		}
-		else if (ft_strnstr(*format, "ll", 2))
-		{
-			len_try(data, LL);
-			(*format) += 1;
-		}
-		else if (ft_strnstr(*format, "l", 1))
+		if (ft_strnstr(*format, "l", 1))
 			len_try(data, L);
 		else if (ft_strnstr(*format, "h", 1))
 			len_try(data, H);
